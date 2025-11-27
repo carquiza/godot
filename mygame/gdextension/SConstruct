@@ -1,0 +1,71 @@
+#!/usr/bin/env python
+"""
+SConstruct for building the MyGame GDExtension.
+
+Usage:
+    scons platform=windows target=template_debug
+    scons platform=windows target=template_release
+    scons platform=linux target=template_debug
+    scons platform=macos target=template_debug
+"""
+
+import os
+import sys
+
+# Try to detect the host platform
+def detect_platform():
+    if sys.platform.startswith('linux'):
+        return 'linux'
+    elif sys.platform == 'darwin':
+        return 'macos'
+    elif sys.platform == 'win32' or sys.platform == 'cygwin':
+        return 'windows'
+    return None
+
+# Environment setup
+env = SConscript("godot-cpp/SConstruct")
+
+# Add our defines for GDExtension mode
+env.Append(CPPDEFINES=["GDEXTENSION_BUILD"])
+
+# Add include paths
+env.Append(CPPPATH=["src/", "game_src/", "game_src/classes/"])
+
+# For relative includes to work, add the parent directory
+env.Append(CPPPATH=["../game_src/", "../game_src/classes/"])
+
+# Gather source files
+sources = []
+
+# GDExtension registration
+sources += Glob("src/*.cpp")
+
+# Game source files
+sources += Glob("../game_src/classes/*.cpp")
+
+# Library name
+libname = "mygame"
+
+# Determine library suffix based on platform and target
+platform = env["platform"]
+target = env["target"]
+
+if platform == "windows":
+    suffix = ".dll"
+elif platform == "macos":
+    suffix = ".dylib"
+else:  # linux and others
+    suffix = ".so"
+
+# Build the library
+library = env.SharedLibrary(
+    target="bin/{}/{}{}{}".format(
+        platform,
+        env.subst("$SHLIBPREFIX") + libname,
+        env.subst("$SHLIBSUFFIX"),
+        ""
+    ),
+    source=sources,
+)
+
+Default(library)

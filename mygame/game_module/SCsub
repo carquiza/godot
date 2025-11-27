@@ -1,0 +1,28 @@
+#!/usr/bin/env python
+"""
+SCsub
+
+Build script for the mygame engine module.
+This collects all source files and compiles them into the engine.
+"""
+
+Import("env")
+Import("env_modules")
+
+env_mygame = env_modules.Clone()
+
+# Add include paths for game source
+# The module is expected to be at godot/modules/mygame/
+# and the game_src is at the same level inside the module directory
+env_mygame.Prepend(CPPPATH=["game_src/", "game_src/classes/"])
+
+# Collect all source files
+module_obj = []
+
+# Module registration files
+env_mygame.add_source_files(module_obj, "*.cpp")
+
+# Game source files
+env_mygame.add_source_files(module_obj, "game_src/classes/*.cpp")
+
+env.modules_sources += module_obj

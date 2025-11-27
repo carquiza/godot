@@ -1,0 +1,54 @@
+# Godot-specific ignores
+.godot/
+*.import
+
+# Build outputs
+gdextension/bin/
+gdextension/godot-cpp/
+project/bin/windows/*.dll
+project/bin/linux/*.so
+project/bin/macos/*.dylib
+project/bin/macos/*.framework/
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# SCons build files
+.sconsign.dblite
+*.pyc
+__pycache__/
+
+# IDE files
+.vscode/
+.idea/
+*.sln
+*.vcxproj*
+*.user
+.vs/
+
+# OS files
+.DS_Store
+Thumbs.db

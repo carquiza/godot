@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://fallback_scene"]
+
+[ext_resource type="Script" path="res://fallback_logo_flasher.gd" id="1_script"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.1, 0.1, 0.15, 1)
+
+[node name="LogoFlasher" type="Node2D" parent="."]
+position = Vector2(640, 360)
+script = ExtResource("1_script")
+
+[node name="TitleLabel" type="Label" parent="."]
+offset_left = 340.0
+offset_top = 50.0
+offset_right = 940.0
+offset_bottom = 100.0
+theme_override_font_sizes/font_size = 32
+text = "C++ Template Test (GDScript Fallback)"
+horizontal_alignment = 1
+
+[node name="InfoLabel" type="Label" parent="."]
+offset_left = 240.0
+offset_top = 580.0
+offset_right = 1040.0
+offset_bottom = 700.0
+theme_override_font_sizes/font_size = 18
+text = "This is the GDScript fallback version.
+Build the C++ extension to use the real LogoFlasher class!
+Run: scripts/setup_godot_cpp.bat then scripts/build_extension.bat"
+horizontal_alignment = 1
